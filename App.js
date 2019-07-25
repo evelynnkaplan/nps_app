@@ -5,6 +5,8 @@ import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignOutScreen from './screens/SignOutScreen';
 import HomeScreen from './screens/HomeScreen';
+import PassScreen from './screens/PassScreen';
+import VisitsScreen from './screens/VisitsScreen';
 
 const firebaseConfig = {
   apiKey: firebaseConfigKeys.apiKey,
@@ -21,6 +23,8 @@ firebase.initializeApp(firebaseConfig);
 const AppStack = createStackNavigator(
   {
     Home: HomeScreen,
+    Pass: PassScreen,
+    Visits: VisitsScreen
   });
 
 const AuthStack = createStackNavigator({

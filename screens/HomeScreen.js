@@ -21,6 +21,14 @@ class HomeScreen extends React.Component {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Welcome, {email}</Text>
         <Button
+          title="Your Pass"
+          onPress={() => this.props.navigation.navigate('Pass')}
+        />
+         <Button
+          title="Your Visit History"
+          onPress={() => this.props.navigation.navigate('Visits')}
+        />
+         <Button
           title="Log Out"
           onPress={() => this.props.navigation.navigate('SignOut')}
         />
