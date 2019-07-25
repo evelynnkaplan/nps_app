@@ -16,26 +16,40 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// class AuthLoadingScreen extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this._bootstrapAsync();
-//   }
+class AuthLoadingScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-//   _boostrapAsync = async () => {
-//     const userToken = await AsyncStorage.getItem('userToken');
-//     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-//   };
+  componentDidMount() {
+    this.findUser();
+  }
 
-//   render() {
-//     return (
-//       <View>
-//         <ActivityIndicator />
-//         <StatusBar barStyle="default" />
-//       </View>
-//     );
-//   }
-// }
+  async findUser () {
+    const userToken = await AsyncStorage.getItem('userData');
+    if (userToken) {
+      const userJson = JSON.parse(JSON.parse(userToken));
+      console.log("user already logged in");
+      console.log("here's the user data"); 
+      console.log(userJson);
+      this.props.navigation.navigate(
+        'Home', 
+        { email: userJson["email"] })
+    } else {
+      console.log("redirecting to sign in screen...");
+      this.props.navigation.navigate('SignIn')
+    }
+  }
+
+  render() {
+    return (
+      <View>
+        <ActivityIndicator />
+        <StatusBar barStyle="default" />
+      </View>
+    );
+  }
+}
 
 class SignInScreen extends React.Component {
   constructor(props) {
@@ -45,10 +59,6 @@ class SignInScreen extends React.Component {
         password: ""
       };
     }
-
-    componentDidMount() {
-      this.getToken();
-   }
 
     handleEmail = (text) => {
       this.setState({ email: text });
@@ -79,16 +89,6 @@ class SignInScreen extends React.Component {
         await AsyncStorage.setItem("userData", JSON.stringify(user));
       } catch (error) {
         console.log("Something went wrong", error);
-      }
-    }
-
-    async getToken(user) {
-      try {
-        let userData = await AsyncStorage.getItem("userData");
-        let data = JSON.parse(userData);
-        console.log(data); 
-      } catch (error) {
-        console.log("Something went wrong", error)
       }
     }
 
@@ -124,16 +124,23 @@ class SignInScreen extends React.Component {
 }
 
 class HomeScreen extends React.Component {
+
+  componentDidMount () {
+    console.log(this.props.navigation);
+  }
+
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('otherParam', 'A Nested Details Screen'),
+      title: 'Your Dashboard',
     };
   };
 
   render() {
+    const email = this.props.navigation.getParam('email');
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+        <Text>Welcome, {email}</Text>
         <Button
           title="Go to Details"
           onPress={() => this.props.navigation.navigate('Details')}
@@ -177,6 +184,7 @@ const AppStack = createStackNavigator(
   });
 
 const AuthStack = createStackNavigator({
+  AuthLoading: AuthLoadingScreen,
   SignIn: SignInScreen
 });
 
