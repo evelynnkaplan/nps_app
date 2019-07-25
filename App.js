@@ -1,5 +1,3 @@
-import React from 'react';
-import {Button, StyleSheet, Text, View } from 'react-native';
 import * as firebase from 'firebase';
 import firebaseConfigKeys from './config';
 import {createSwitchNavigator, createStackNavigator, createAppContainer} from 'react-navigation';
@@ -37,27 +35,3 @@ export default createAppContainer(createSwitchNavigator({
   },
   { initialRouteName: 'Auth',}
   ));
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 2,
-      justifyContent: "center",
-      backgroundColor: "#F5FCFF"
-    },
-    input: {
-      margin: 15,
-      height: 40,
-      borderColor: "black",
-      borderWidth: 1
-    },
-    submitButton: {
-      backgroundColor: "black",
-      padding: 10,
-      margin: 15,
-      alignItems: "center",
-      height: 40
-    },
-    submitButtonText: {
-      color: "white"
-    }
-  });
