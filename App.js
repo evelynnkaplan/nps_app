@@ -262,33 +262,6 @@ class HomeScreen extends React.Component {
           title="Log Out"
           onPress={() => this.props.navigation.navigate('SignOut')}
         />
-         <Button
-          title="Update the title"
-          onPress={() => this.props.navigation.setParams({otherParam: 'Updated!'})}
-        />
-      </View>
-    );
-  }
-}
-
-class DetailsScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Details',
-    
-  };
-
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-        <Button
-          title="Go to Details... again"
-          onPress={() => this.props.navigation.push('Details')}
-        />
-         <Button
-          title="Go back"
-          onPress={() => this.props.navigation.goBack()}
-        />
       </View>
     );
   }
