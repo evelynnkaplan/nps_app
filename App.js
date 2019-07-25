@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Container, Item, Form, Input, Button, Label } from "native-base";
+import { ActivityIndicator, AsyncStorage, Button, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as firebase from 'firebase';
 import firebaseConfigKeys from './config';
+import {createSwitchNavigator, createStackNavigator, createAppContainer} from 'react-navigation';
 
 const firebaseConfig = {
   apiKey: firebaseConfigKeys.apiKey,
@@ -16,84 +16,199 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export default class App extends React.Component {
+// class AuthLoadingScreen extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this._bootstrapAsync();
+//   }
+
+//   _boostrapAsync = async () => {
+//     const userToken = await AsyncStorage.getItem('userToken');
+//     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+//   };
+
+//   render() {
+//     return (
+//       <View>
+//         <ActivityIndicator />
+//         <StatusBar barStyle="default" />
+//       </View>
+//     );
+//   }
+// }
+
+class SignInScreen extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      email: '',
-      password: ''
-    };
-  }
+        email: "",
+        password: ""
+      };
+    }
 
-  SignUp = (email, password) => {
-    try {
-      firebase
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then(user => { 
-                 console.log(user);
-           });
-    } catch (error) {
-        console.log(error.toString(error));
-      }
+    componentDidMount() {
+      this.getToken();
+   }
+
+    handleEmail = (text) => {
+      this.setState({ email: text });
     };
 
-  Login = (email, password) => {
-    try {
+    handlePassword = (text) => {
+      this.setState({ password: text });
+    };
+
+    login = (email, pass) => {
       firebase
         .auth()
-        .signInWithEmailAndPassword(email, password)
+        .signInWithEmailAndPassword(email, pass)
         .then(res => {
-          console.log(res.user.email);
-    }); 
-    } catch (error) {
-      console.log(error.toString(error));
-        }
+          console.log('success');
+          this.storeToken(JSON.stringify(res.user));
+          this.props.navigation.navigate('Details');
+        })
+        .catch(error => {
+          // Handle Errors here.
+          console.log(error.message);
+          
+        });
     };
+
+    async storeToken (user) {
+      try {
+        await AsyncStorage.setItem("userData", JSON.stringify(user));
+      } catch (error) {
+        console.log("Something went wrong", error);
+      }
+    }
+
+    async getToken(user) {
+      try {
+        let userData = await AsyncStorage.getItem("userData");
+        let data = JSON.parse(userData);
+        console.log(data); 
+      } catch (error) {
+        console.log("Something went wrong", error)
+      }
+    }
+
+  render () {
+    return (
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          underlineColorAndroid="transparent"
+          placeholder="Email"
+          placeholderTextColor="black"
+          autoCapitalize="none"
+          onChangeText={this.handleEmail}
+        />
+        <TextInput
+          style={styles.input}
+          underlineColorAndroid="transparent"
+          placeholder="Password"
+          placeholderTextColor="black"
+          autoCapitalize="none"
+          secureTextEntry={true}
+          onChangeText={this.handlePassword}
+        />
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() => this.login(this.state.email, this.state.password)}
+        >
+          <Text style={styles.submitButtonText}> Submit </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+}
+
+class HomeScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('otherParam', 'A Nested Details Screen'),
+    };
+  };
 
   render() {
     return (
-      <Container>
-        <Form>
-          <Item floatingLabel>
-            <Label>Email</Label>
-            <Input 
-              autoCapitalize="none" 
-              autoCorrect={false}
-              onChangeText={email => this.setState({ email })} 
-            />
-          </Item>
-          <Item floatingLabel>
-            <Label>Password</Label>
-            <Input
-              secureTextEntry={true}
-              autoCapitalize="none"
-              autoCorrect={false}
-              onChangeText={password => this.setState({ password })}
-            />
-          </Item>
-          <Button full rounded success
-          onPress={() => this.Login(this.state.email, this.state.password)}>
-            <Text>Login</Text>
-          </Button>
-          <Button full rounded success 
-            style={{ marginTop: 20 }}
-            onPress={() => this.SignUp(this.state.email, this.state.password)} > 
-            <Text>Signup</Text>
-          </Button>
-        </Form>
-      </Container>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
+         <Button
+          title="Update the title"
+          onPress={() => this.props.navigation.setParams({otherParam: 'Updated!'})}
+        />
+      </View>
     );
   }
 }
 
+class DetailsScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Details',
+    
+  };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+  render() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Details Screen</Text>
+        <Button
+          title="Go to Details... again"
+          onPress={() => this.props.navigation.push('Details')}
+        />
+         <Button
+          title="Go back"
+          onPress={() => this.props.navigation.goBack()}
+        />
+      </View>
+    );
   }
-}); 
+}
+
+const AppStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Details: DetailsScreen,
+  });
+
+const AuthStack = createStackNavigator({
+  SignIn: SignInScreen
+});
+
+export default createAppContainer(createSwitchNavigator({
+  // AuthLoading: AuthLoadingScreen,
+  App: AppStack,
+  Auth: AuthStack,
+  },
+  { initialRouteName: 'Auth',}
+  ));
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 2,
+      justifyContent: "center",
+      // alignItems: "center",
+      backgroundColor: "#F5FCFF"
+    },
+    input: {
+      margin: 15,
+      height: 40,
+      borderColor: "black",
+      borderWidth: 1
+    },
+    submitButton: {
+      backgroundColor: "black",
+      padding: 10,
+      margin: 15,
+      alignItems: "center",
+      height: 40
+    },
+    submitButtonText: {
+      color: "white"
+    }
+  });
