@@ -83,10 +83,10 @@ class SignInScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text>{responseMessage}</Text>
-        <Text>Welcome to My NPS Pass. Please log into your account.</Text>
+        <Text>Welcome to My NPS Pass App.</Text>
+        <Text>Please log in or sign up with the email address associated with your annual pass.</Text>
         <TextInput
           style={styles.input}
-          underlineColorAndroid="transparent"
           placeholder="Email"
           placeholderTextColor="black"
           autoCapitalize="none"
@@ -94,7 +94,6 @@ class SignInScreen extends React.Component {
         />
         <TextInput
           style={styles.input}
-          underlineColorAndroid="transparent"
           placeholder="Password"
           placeholderTextColor="black"
           autoCapitalize="none"
