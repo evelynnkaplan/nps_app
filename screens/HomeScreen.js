@@ -5,7 +5,6 @@ import * as firebase from 'firebase';
 class HomeScreen extends React.Component {
 
   componentDidMount () {
-    console.log(this.props.navigation);
   }
 
   static navigationOptions = ({ navigation }) => {
