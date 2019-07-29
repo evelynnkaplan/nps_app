@@ -9,6 +9,7 @@ import PassScreen from './screens/PassScreen';
 import PassLoadingScreen from './screens/PassLoadingScreen';
 import VisitsScreen from './screens/VisitsScreen';
 import PassBarcodeScreen from './screens/PassBarcodeScreen';
+import VisitsLoadingScreen from './screens/VisitsLoadingScreen';
 
 const firebaseConfig = {
   apiKey: firebaseConfigKeys.apiKey,
@@ -28,7 +29,8 @@ const AppStack = createStackNavigator(
     Pass: PassScreen,
     PassLoading: PassLoadingScreen,
     PassBarcode: PassBarcodeScreen,
-    Visits: VisitsScreen
+    Visits: VisitsScreen,
+    VisitsLoading: VisitsLoadingScreen,
   });
 
 const AuthStack = createStackNavigator({

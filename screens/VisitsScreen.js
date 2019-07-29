@@ -14,7 +14,6 @@ class VisitsScreen extends React.Component {
 
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>VisitsScreen</Text>
       </View>
     );
   }

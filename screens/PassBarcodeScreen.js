@@ -13,7 +13,6 @@ class PassBarcodeScreen extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <Barcode value={this.state.passId} format="CODE128" />
       );

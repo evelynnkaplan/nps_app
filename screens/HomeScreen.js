@@ -25,7 +25,7 @@ class HomeScreen extends React.Component {
         />
          <Button
           title="Your Visit History"
-          onPress={() => this.props.navigation.navigate('Visits')}
+          onPress={() => this.props.navigation.navigate('VisitsLoading')}
         />
          <Button
           title="Log Out"
