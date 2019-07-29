@@ -6,6 +6,7 @@ import SignInScreen from './screens/SignInScreen';
 import SignOutScreen from './screens/SignOutScreen';
 import HomeScreen from './screens/HomeScreen';
 import PassScreen from './screens/PassScreen';
+import PassLoadingScreen from './screens/PassLoadingScreen';
 import VisitsScreen from './screens/VisitsScreen';
 
 const firebaseConfig = {
@@ -24,6 +25,7 @@ const AppStack = createStackNavigator(
   {
     Home: HomeScreen,
     Pass: PassScreen,
+    PassLoading: PassLoadingScreen,
     Visits: VisitsScreen
   });
 

@@ -21,7 +21,7 @@ class HomeScreen extends React.Component {
         <Text>Welcome, {email}</Text>
         <Button
           title="Your Pass"
-          onPress={() => this.props.navigation.navigate('Pass')}
+          onPress={() => this.props.navigation.navigate('PassLoading')}
         />
          <Button
           title="Your Visit History"
