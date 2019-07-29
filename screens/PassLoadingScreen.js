@@ -4,7 +4,6 @@ import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
 class PassLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   componentDidMount() {
@@ -14,7 +13,6 @@ class PassLoadingScreen extends React.Component {
   async findUser () {
     const userToken = await AsyncStorage.getItem('userData');
     const userJson = JSON.parse(JSON.parse(userToken));
-    console.log(userJson['email']);
     const passes = [];
     if (userToken) {
       fetch(`http://mynpspass.herokuapp.com/userpass/${userJson['email']}`)
@@ -52,7 +50,6 @@ class PassLoadingScreen extends React.Component {
           obj['expirationDate'] = data[item]['expiration_date'];
           obj['type'] = data[item]['type'];
           passes.push(obj);
-
         }
       })
     }

@@ -8,9 +8,9 @@ class PassScreen extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      userEmail: "",
-      passFound: false,
-      passesArray: []
+      userEmail: this.props.navigation.getParam('userEmail', null),
+      passFound: this.props.navigation.getParam('passFound', false),
+      passesArray: this.props.navigation.getParam('passesArray', null),
     };
   }
 
@@ -22,7 +22,7 @@ class PassScreen extends React.Component {
 
     return (
       <View>
-       <Text>PassScreen</Text>
+       <Text>{this.state.userEmail}</Text>
       </View>
     );
   }
