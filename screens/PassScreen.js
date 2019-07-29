@@ -1,7 +1,7 @@
 import React from 'react';
 import {AsyncStorage, Button, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
-// import console = require('console');
+
 
 class PassScreen extends React.Component {
 
@@ -26,7 +26,12 @@ class PassScreen extends React.Component {
   async findUser () {
     const userToken = await AsyncStorage.getItem('userData');
     const userJson = JSON.parse(JSON.parse(userToken));
-    this.setState({ userEmail: userJson["email"], passFound: true });
+    if (userToken) {
+      this.setState({ 
+        userEmail: userJson["email"], 
+        passFound: true,});
+      this.getPass();
+    }
   }
 
   handleEmail = (text) => {
@@ -34,15 +39,39 @@ class PassScreen extends React.Component {
   }
 
   getPass = () => {
-
-  }
-
-  
+      fetch(`http://mynpspass.herokuapp.com/userpass/${this.state.userEmail}`)
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          const passes = [];
+          for (let item in data) {
+            let obj = {};
+            obj['passId'] = item;
+            obj['expirationDate'] = data[item]['expiration_date'];
+            obj['type'] = data[item]['type'];
+            passes.push(obj);
+          }
+          console.log(passes)
+        })
+        .catch(err => {
+          // Do something for an error here
+        })
+      }
 
   render() {
 
+    // const formatFlatlistData = () => {
+    //   const passData = [];
+    //   for (let pass in this.state.passJson) {
+    //     let obj = {};
+    //     obj[this.state.passJson
+    //   }
+    // }
+
     const getView = () => {
       if (this.state.passFound) {
+        // formatFlatlistData();
         return <Text>hello found ur pass</Text>;
       } else {
         return <Text>hi</Text>;
