@@ -1,7 +1,5 @@
-import React from 'react';
-import {AsyncStorage, Button, FlatList, List, ListItem, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import * as firebase from 'firebase';
-
+import React from "react";
+import { FlatList, View, Text, ActivityIndicator, StyleSheet } from "react-native";
 
 class PassScreen extends React.Component {
 
@@ -21,8 +19,12 @@ class PassScreen extends React.Component {
   render() {
 
     return (
-      <View>
-       <Text>{this.state.userEmail}</Text>
+      <View style={styles.container}>
+         <FlatList 
+          data={this.state.passesArray}
+          renderItem={({item}) => <Text>{item.passId}</Text>}
+          keyExtractor={item => item.passId}
+         />
       </View>
     );
   }
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     justifyContent: "center",
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#1D6D3B"
   },
   input: {
     margin: 15,

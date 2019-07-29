@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     justifyContent: "center",
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#1D6D3B"
   },
   input: {
     margin: 15,
