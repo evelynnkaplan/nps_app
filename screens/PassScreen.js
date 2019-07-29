@@ -9,7 +9,8 @@ class PassScreen extends React.Component {
     super(props);
     this.state = {
       userEmail: "",
-      passFound: false
+      passFound: false,
+      passesArray: []
     }
   }
 
@@ -52,7 +53,8 @@ class PassScreen extends React.Component {
             obj['type'] = data[item]['type'];
             passes.push(obj);
           }
-          console.log(passes)
+          this.setState({ passesArray: passes });
+          console.log(this.state);
         })
         .catch(err => {
           // Do something for an error here
