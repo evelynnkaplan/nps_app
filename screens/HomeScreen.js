@@ -17,7 +17,7 @@ class HomeScreen extends React.Component {
     const email = this.props.navigation.getParam('email');
 
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={styles.container}>
         <Text>Welcome, {email}</Text>
         <Button
           title="Your Pass"
@@ -40,7 +40,8 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
+    alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#1D6D3B"
   },

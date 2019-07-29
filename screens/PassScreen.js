@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 class PassScreen extends React.Component {
 
@@ -20,9 +21,17 @@ class PassScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Text style={styles.header}>Click on a pass to get the barcode.</Text>
          <FlatList 
           data={this.state.passesArray}
-          renderItem={({item}) => <Text>{item.passId}</Text>}
+          renderItem={({item}) => 
+            <TouchableOpacity 
+              style={styles.passData}
+              onPress={() => this.props.navigation.navigate('PassBarcode', {passId: item.passId }) }>
+              <Text>Pass ID: {item.passId}</Text>
+              <Text>Pass Type: {item.type}</Text>
+              <Text>Expiration Date: {item.expirationDate}</Text>
+            </TouchableOpacity>}
           keyExtractor={item => item.passId}
          />
       </View>
@@ -36,22 +45,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#1D6D3B"
   },
-  input: {
-    margin: 15,
-    height: 40,
-    borderColor: "black",
-    borderWidth: 1
-  },
-  submitButton: {
-    backgroundColor: "black",
+  passData: {
     padding: 10,
     margin: 15,
     alignItems: "center",
-    height: 40
+    justifyContent: "center",
+    backgroundColor: "white"
   },
-  submitButtonText: {
-    color: "white"
+  header: {
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 15
   }
 });
