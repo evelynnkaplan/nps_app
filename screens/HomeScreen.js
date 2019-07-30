@@ -11,10 +11,16 @@ class HomeScreen extends React.Component {
 
   render() {
     const email = this.props.navigation.getParam('email');
+    const error = this.props.navigation.getParam('error', null);
+    let errorMessage = "";
+    if (error) {
+      errorMessage = `There was an error: ${error.message}`;
+    }
 
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
+          <Text style={styles.header}>{errorMessage}</Text>
           <Text style={styles.header}>Welcome, {email}</Text>
         </View>
         <TouchableOpacity

@@ -42,6 +42,12 @@ class PassLoadingScreen extends React.Component {
             passFound: true,
             passesArray: passes,
         });
+      })
+      .catch((error) => {
+        this.props.navigation.navigate(
+          'Home',
+          { error: error}
+          );
       });
     }
   }
