@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import * as firebase from 'firebase';
 
 class HomeScreen extends React.Component {
 
