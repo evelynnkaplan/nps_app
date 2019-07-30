@@ -7,7 +7,7 @@ class PassBarcodeScreen extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      passId: this.props.navigation.getParam('passId', null),
+      passId: this.props.navigation.getParam('passId', 'no pass found'),
     };
   }
 
