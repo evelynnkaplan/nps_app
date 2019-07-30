@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
+import { ActivityIndicator, AsyncStorage, StatusBar, StyleSheet, View } from 'react-native';
 
 class PassLoadingScreen extends React.Component {
   constructor(props) {
@@ -73,8 +73,8 @@ class PassLoadingScreen extends React.Component {
 
     render() {
       return (
-        <View>
-          <ActivityIndicator />
+        <View style={styles.container}>
+          <ActivityIndicator color="white" size="large" />
           <StatusBar barStyle="default" />
         </View>
       );
@@ -82,3 +82,12 @@ class PassLoadingScreen extends React.Component {
 }
 
 export default PassLoadingScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#1D6D3B"
+  },
+});
