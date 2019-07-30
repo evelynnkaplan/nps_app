@@ -9,8 +9,7 @@ class PassScreen extends React.Component {
     super(props);
     this.state = {
       userEmail: this.props.navigation.getParam('userEmail', null),
-      passFound: this.props.navigation.getParam('passFound', false),
-      passesArray: this.props.navigation.getParam('passesArray', null),
+      passesArray: this.props.navigation.getParam('passesArray', null)
     };
   }
 
@@ -21,24 +20,37 @@ class PassScreen extends React.Component {
     };
   };
 
-  handleEmail = (text) => {
-    this.setState({ submittedEmail: text });
-  }
-
   render() {
+
+    let headerText = "";
+    if (this.state.passesArray.length > 0) {
+      headerText = "Click on a pass to get the barcode."
+    } else {
+      headerText = `The email address ${this.state.userEmail} is not associated with any passes. \n \n If your pass is associated with another email address, sign out and sign in with the associated email address.`
+    }
+
+    const formatExpirationDate = (str) => {
+      if (str != null) {
+        return str
+      } else { 
+        return "N/A"
+      }
+    }
 
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Click on a pass to get the barcode.</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>{headerText}</Text>
+        </View>
          <FlatList 
           data={this.state.passesArray}
           renderItem={({item}) => 
             <TouchableOpacity 
               style={styles.passData}
               onPress={() => this.props.navigation.navigate('PassBarcode', {passId: item.passId }) }>
-              <Text>Pass ID: {item.passId}</Text>
-              <Text>Pass Type: {item.type}</Text>
-              <Text>Expiration Date: {item.expirationDate}</Text>
+              <Text><Text style={styles.label}>Pass ID: </Text>{item.passId}</Text>
+              <Text><Text style={styles.label}>Pass Type: </Text>{item.type}</Text>
+              <Text><Text style={styles.label}>Expiration Date: </Text>{formatExpirationDate(item.expirationDate)}</Text>
             </TouchableOpacity>}
           keyExtractor={item => item.passId}
          />
@@ -57,16 +69,25 @@ const styles = StyleSheet.create({
     backgroundColor: "#1D6D3B"
   },
   passData: {
-    padding: 10,
+    padding: 20,
+    fontSize: 14,
     margin: 15,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white"
   },
+  label: {
+    fontWeight: "bold",
+  },
+  headerContainer: {
+    padding: 30,
+    marginTop: 50
+  },
   header: {
     color: "white",
     alignItems: "center",
     justifyContent: "center",
-    margin: 15
+    testAlign: "left",
+    fontSize: 20,
   }
 });
