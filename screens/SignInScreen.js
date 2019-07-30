@@ -11,6 +11,12 @@ class SignInScreen extends React.Component {
       };
     }
 
+    static navigationOptions = () => {
+      return {
+        headerLeft: null,
+      };
+    };
+
     handleEmail = (text) => {
       this.setState({ email: text });
     };
@@ -82,35 +88,37 @@ class SignInScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>{responseMessage}</Text>
-        <Text>Welcome to My NPS Pass App.</Text>
-        <Text>Please log in or sign up with the email address associated with your annual pass.</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>{responseMessage}</Text>
+          <Text style={styles.header}>Welcome to My NPS Pass</Text>
+          <Text style={styles.subHeader}>Please sign in or sign up with the email address associated with your annual pass.</Text>
+        </View>
         <TextInput
           style={styles.input}
           placeholder="Email"
-          placeholderTextColor="black"
+          placeholderTextColor="gray"
           autoCapitalize="none"
           onChangeText={this.handleEmail}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
-          placeholderTextColor="black"
+          placeholderTextColor="gray"
           autoCapitalize="none"
           secureTextEntry={true}
           onChangeText={this.handlePassword}
         />
         <TouchableOpacity
-          style={styles.submitButton}
+          style={styles.button}
           onPress={() => this.login(this.state.email, this.state.password)}
         >
-          <Text style={styles.submitButtonText}> Sign in as Existing User </Text>
+          <Text style={styles.buttonText}> Sign in as Existing User </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.submitButton}
+          style={styles.button}
           onPress={() => this.signup(this.state.email, this.state.password)}
         >
-          <Text style={styles.submitButtonText}> Sign Up as New User </Text>
+          <Text style={styles.buttonText}> Sign Up as New User </Text>
         </TouchableOpacity>
       </View>
     );
@@ -123,22 +131,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#1D6D3B"
+  },
+  headerContainer: {
+    padding: 10
+  },
+  header: {
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    fontSize: 20,
+    padding: 8,
+  },
+  subHeader: {
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    fontSize: 16,
   },
   input: {
     margin: 15,
-    height: 40,
+    height: 50,
+    backgroundColor: "white",
+    borderWidth: 0.5,
     borderColor: "black",
-    borderWidth: 1
+    width: "80%",
+    textAlign: "center"
   },
-  submitButton: {
-    backgroundColor: "black",
-    padding: 10,
+  button: {
+    padding: 15,
     margin: 15,
     alignItems: "center",
-    height: 40
+    justifyContent: "center",
+    backgroundColor: "white",
+    width: 240,
   },
-  submitButtonText: {
-    color: "white"
+  buttonText: {
+    fontSize: 16,
   }
 });
