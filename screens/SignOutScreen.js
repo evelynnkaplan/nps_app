@@ -17,11 +17,11 @@ class SignOutScreen extends React.Component {
         await AsyncStorage.removeItem("userData");
         await AsyncStorage.removeItem("passData");
       } catch (error) {
-        // Error retrieving data
-        console.log(error.message);
+        this.props.navigation.navigate(
+          'Home',
+          { error: error}
+          );
       }
-    }).catch(function(error) {
-      console.log(error.message);
     });
   }
 
