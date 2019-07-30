@@ -27,6 +27,12 @@ class VisitsLoadingScreen extends React.Component {
           'Visits',
           { visitsArray: visits }
           );
+      })
+      .catch((error) => {
+        this.props.navigation.navigate(
+          'Home',
+          { error: error}
+          );
       });
     }
   }
