@@ -18,7 +18,6 @@ class AuthLoadingScreen extends React.Component {
         'Home', 
         { email: userJson["email"] })
     } else {
-      console.log("redirecting to sign in screen...");
       this.props.navigation.navigate('SignIn')
     }
   }
