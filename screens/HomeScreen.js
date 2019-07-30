@@ -4,9 +4,6 @@ import * as firebase from 'firebase';
 
 class HomeScreen extends React.Component {
 
-  componentDidMount () {
-  }
-
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Your Dashboard',
@@ -28,7 +25,7 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate('VisitsLoading')}
         />
          <Button
-          title="Log Out"
+          title="Sign Out"
           onPress={() => this.props.navigation.navigate('SignOut')}
         />
       </View>
