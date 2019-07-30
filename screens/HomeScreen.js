@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     color: "white",
     alignItems: "center",
     justifyContent: "center",
-    testAlign: "left",
     fontSize: 20,
   },
   button: {
