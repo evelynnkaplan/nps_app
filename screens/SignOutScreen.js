@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, Button, StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as firebase from 'firebase';
 
 class SignOutScreen extends React.Component {
@@ -27,12 +27,13 @@ class SignOutScreen extends React.Component {
 
   render () {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>You're logged out!</Text>
-        <Button
-          title="Back to Sign-in"
-          onPress={() => this.props.navigation.navigate('Auth')}
-        />
+      <View style={styles.container}>
+        <Text style={styles.header}>You've been signed out.</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate('Auth')}>
+            <Text style={styles.buttonText}>Back to Sign-in</Text>
+          </TouchableOpacity>
       </View>
        
     )
@@ -45,22 +46,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
     justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#1D6D3B"
   },
-  input: {
-    margin: 15,
-    height: 40,
-    borderColor: "black",
-    borderWidth: 1
+  header: {
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 20,
   },
-  submitButton: {
-    backgroundColor: "black",
-    padding: 10,
+  button: {
+    padding: 15,
     margin: 15,
     alignItems: "center",
-    height: 40
+    justifyContent: "center",
+    backgroundColor: "white",
+    width: 240,
   },
-  submitButtonText: {
-    color: "white"
+  buttonText: {
+    fontSize: 16,
   }
 });
