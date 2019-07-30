@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
+import { ActivityIndicator, AsyncStorage, StatusBar, StyleSheet, View } from 'react-native';
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -25,8 +25,8 @@ class AuthLoadingScreen extends React.Component {
 
   render() {
     return (
-      <View>
-        <ActivityIndicator />
+      <View style={styles.container}>
+        <ActivityIndicator color="white" size="large" />
         <StatusBar barStyle="default" />
       </View>
     );
@@ -34,3 +34,12 @@ class AuthLoadingScreen extends React.Component {
 }
 
 export default AuthLoadingScreen;
+
+const styles = StyleSheet.create({
+container: {
+  flex: 2,
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#1D6D3B"
+},
+});

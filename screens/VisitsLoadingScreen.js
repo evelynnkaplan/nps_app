@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, StatusBar, View } from 'react-native';
+import { ActivityIndicator, AsyncStorage, StatusBar, StyleSheet, View } from 'react-native';
 
 class VisitsLoadingScreen extends React.Component {
   constructor(props) {
@@ -31,14 +31,23 @@ class VisitsLoadingScreen extends React.Component {
     }
   }
 
-    render() {
-      return (
-        <View>
-          <ActivityIndicator />
-          <StatusBar barStyle="default" />
-        </View>
-      );
-    }
+  render() {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator color="white" size="large" />
+        <StatusBar barStyle="default" />
+      </View>
+    );
+  }
 }
 
 export default VisitsLoadingScreen;
+
+const styles = StyleSheet.create({
+container: {
+  flex: 2,
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: "#1D6D3B"
+},
+});
