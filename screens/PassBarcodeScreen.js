@@ -13,11 +13,10 @@ class PassBarcodeScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         <View style={styles.barcodeContainer}>
           <Barcode value={this.state.passId} width="2.5" height="150" format="CODE128" />
         </View>
-        <Text></Text>
       </View>
       );
   }
