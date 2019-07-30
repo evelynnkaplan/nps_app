@@ -9,7 +9,6 @@ class SignOutScreen extends React.Component {
   }
 
   logout = () => {
-    console.log(AsyncStorage);
     firebase
       .auth().signOut()
       .then(async () => {

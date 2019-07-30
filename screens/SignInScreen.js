@@ -30,7 +30,6 @@ class SignInScreen extends React.Component {
         .auth()
         .signInWithEmailAndPassword(email, pass)
         .then(res => {
-          console.log('success');
           this.storeToken(JSON.stringify(res.user));
           this.props.navigation.navigate(
             'Home', 
@@ -55,7 +54,6 @@ class SignInScreen extends React.Component {
         .auth()
         .createUserWithEmailAndPassword(email, pass)
         .then(res => {
-          console.log('success');
           this.storeToken(JSON.stringify(res.user));
           this.props.navigation.navigate(
             'Home', 
