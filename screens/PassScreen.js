@@ -1,5 +1,5 @@
 import React from "react";
-import { Button,  FlatList, View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { FlatList, View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { HeaderBackButton } from 'react-navigation';
 
