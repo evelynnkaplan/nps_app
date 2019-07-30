@@ -15,6 +15,7 @@ class SignOutScreen extends React.Component {
       .then(async () => {
       try {
         await AsyncStorage.removeItem("userData");
+        await AsyncStorage.removeItem("passData");
       } catch (error) {
         // Error retrieving data
         console.log(error.message);

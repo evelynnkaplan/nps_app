@@ -12,9 +12,17 @@ class PassLoadingScreen extends React.Component {
 
   async findUser () {
     const userToken = await AsyncStorage.getItem('userData');
+    const passData = await AsyncStorage.getItem('passData');
     const userJson = JSON.parse(JSON.parse(userToken));
     const passes = [];
-    if (userToken) {
+    if (passData) {
+        this.props.navigation.navigate(
+          'Pass',
+          { userEmail: userJson["email"],
+            passFound: true,
+            passesArray: JSON.parse(passData),
+        });
+    } else {
       fetch(`http://mynpspass.herokuapp.com/userpass/${userJson['email']}`)
       .then(response => {
         return response.json()
@@ -27,6 +35,7 @@ class PassLoadingScreen extends React.Component {
           obj['type'] = data[item]['type'];
           passes.push(obj);
         }
+        this.storeToken(passes);
         this.props.navigation.navigate(
           'Pass',
           { userEmail: userJson["email"],
@@ -52,6 +61,14 @@ class PassLoadingScreen extends React.Component {
           passes.push(obj);
         }
       })
+    }
+
+    async storeToken (passArray) {
+      try {
+        await AsyncStorage.setItem("passData", JSON.stringify(passArray));
+      } catch (error) {
+        console.log("Something went wrong", error);
+      }
     }
 
     render() {
