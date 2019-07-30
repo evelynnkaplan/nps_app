@@ -1,6 +1,7 @@
 import React from "react";
-import { FlatList, View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { Button,  FlatList, View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { HeaderBackButton } from 'react-navigation';
 
 class PassScreen extends React.Component {
 
@@ -12,6 +13,13 @@ class PassScreen extends React.Component {
       passesArray: this.props.navigation.getParam('passesArray', null),
     };
   }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Your Passes',
+      headerLeft: <HeaderBackButton onPress={()=>{navigation.navigate('Home')}} backTitleVisible={true} />
+    };
+  };
 
   handleEmail = (text) => {
     this.setState({ submittedEmail: text });
