@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, AsyncStorage, StatusBar, StyleSheet, View } from 'react-native';
+// Much sign-in/sign-out functionality came from the help of this article: https://medium.com/the-react-native-log/building-an-authentication-flow-with-react-navigation-fb5de2203b5c
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {

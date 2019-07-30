@@ -1,6 +1,8 @@
 import React from 'react';
 import { AsyncStorage, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as firebase from 'firebase';
+// Much sign-in/sign-out functionality came from the help of this article: https://medium.com/the-react-native-log/building-an-authentication-flow-with-react-navigation-fb5de2203b5c
+// Firebase help came from here: https://firebase.google.com/docs/auth/web/firebaseui
 
 class SignInScreen extends React.Component {
   constructor(props) {
