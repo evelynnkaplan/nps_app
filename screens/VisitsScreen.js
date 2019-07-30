@@ -39,15 +39,18 @@ class VisitsScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Your Visits</Text>
+        </View>
          <FlatList 
           data={formattedVisits}
           renderItem={({item}) => 
-            <TouchableOpacity 
-              style={styles.passData}>
-              <Text>{item.date}</Text>
-              <Text>{item.park}</Text>
-              <Text>{item.visitor}</Text>
-            </TouchableOpacity>}
+            <View
+              style={styles.visitData}>
+              <Text><Text style={styles.label}>Park: </Text>{item.park}</Text>
+              <Text><Text style={styles.label}>Visitor: </Text>{item.visitor}</Text>
+              <Text><Text style={styles.label}>Date: </Text>{item.date}</Text>
+            </View>}
           keyExtractor={item => item}
          />
       </View>
@@ -64,17 +67,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#1D6D3B"
   },
-  passData: {
-    padding: 10,
+  visitData: {
+    padding: 20,
+    fontSize: 14,
     margin: 15,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    textAlign: "center"
+  },
+  label: {
+    fontWeight: "bold",
+  },
+  headerContainer: {
+    padding: 30,
   },
   header: {
     color: "white",
     alignItems: "center",
     justifyContent: "center",
-    margin: 15
+    testAlign: "left",
+    fontSize: 20,
   }
 });
