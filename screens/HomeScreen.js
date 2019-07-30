@@ -1,10 +1,10 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as firebase from 'firebase';
 
 class HomeScreen extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
     return {
       title: 'Your Dashboard',
     };
@@ -15,19 +15,24 @@ class HomeScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text>Welcome, {email}</Text>
-        <Button
-          title="Your Pass"
-          onPress={() => this.props.navigation.navigate('PassLoading')}
-        />
-         <Button
-          title="Your Visit History"
-          onPress={() => this.props.navigation.navigate('VisitsLoading')}
-        />
-         <Button
-          title="Sign Out"
-          onPress={() => this.props.navigation.navigate('SignOut')}
-        />
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Welcome, {email}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate('PassLoading')}>
+            <Text style={styles.buttonText}>Your Pass</Text>
+          </TouchableOpacity>
+         <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate('VisitsLoading')}>
+        <Text style={styles.buttonText}>Your Visit History</Text>
+        </TouchableOpacity>
+         <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate('SignOut')}>
+        <Text style={styles.buttonText}>Sign Out</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -37,25 +42,30 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
+    flex: 2,
     justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#1D6D3B"
   },
-  input: {
-    margin: 15,
-    height: 40,
-    borderColor: "black",
-    borderWidth: 1
+  headerContainer: {
+    padding: 10
   },
-  submitButton: {
-    backgroundColor: "black",
-    padding: 10,
+  header: {
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    testAlign: "left",
+    fontSize: 20,
+  },
+  button: {
+    padding: 15,
     margin: 15,
     alignItems: "center",
-    height: 40
+    justifyContent: "center",
+    backgroundColor: "white",
+    width: 240,
   },
-  submitButtonText: {
-    color: "white"
+  buttonText: {
+    fontSize: 16,
   }
 });
